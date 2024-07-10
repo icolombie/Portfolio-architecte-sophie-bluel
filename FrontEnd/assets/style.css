@@ -185,4 +185,46 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+/*Code ajouté à l'original*/
+/*Boutons de tri*/
+.barreBoutons {
+	width: 100%;
+	
+	justify-content: center;
+	display: flex;
+	gap : 5px;
+	margin-bottom: 30px;
+
+}
+.barreBoutons button {
+	border-radius: 30px;
+	color: #1D6154;
+	border: solid 1px #1D6154;
+	font-family: syne;
+	font-size: 16px;
+	font-weight: 700;
+}
+.barreBoutons button:hover {
+	color: white;
+	background-color: #1D6154;
+}
+.barreBoutons button:focus {
+	color: white;
+	background-color: #1D6154;
+}
+.btnResto {
+	padding: 15px;
+}
+.btntous {
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.btnObjets {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.btnAppart {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
