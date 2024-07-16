@@ -184,12 +184,15 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+	
 }
 /*Code ajouté à l'original*/
 /*Boutons de tri*/
+a {
+text-decoration: none;
+}
 .barreBoutons {
 	width: 100%;
-	
 	justify-content: center;
 	display: flex;
 	gap : 5px;
@@ -227,4 +230,69 @@ footer nav ul {
 	padding-left: 20px;
 	padding-right: 20px;
 }
+/*Page de connexion*/
 
+.connexion h1 {
+	color: #1D6154;
+	margin-bottom: 40px;
+	font-size: 30px;
+	line-height: 36px;
+	font-weight: 700;
+}
+.connexion {
+	width: 100%;
+	height: 922px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.connexion form {
+	display: flex;
+	flex-direction: column;
+	
+}
+.connexion #email, #password{
+	width: 379px;
+	height: 51px;
+	box-shadow: 0px 4px 14px 0px rgba(0,0,0,0.09);
+	border: white;
+	margin-top: 5px;
+	margin-bottom: 40px;
+}
+.connexion label {
+	font-family: Work Sans;
+	font-weight: 500;
+	font-size: 14px;
+	color: rgba(61, 61, 61, 1);
+}
+.connexion .envoi {
+	width: 179px;
+	height: 36px;
+	margin-top: 15px;
+}
+.connexion a {
+	font-family: Work Sans;
+	font-weight: 500;
+	font-size: 14px;
+	color: rgba(61, 61, 61, 1);
+	text-align: center;
+}
+#edition {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	height: 59px;
+	background-color: black;
+	display: none;
+}
+.edition i, span{
+	color: white;
+}
+.edition i {
+	margin-left: 20px;
+}
+#logout {
+	display: none;
+}

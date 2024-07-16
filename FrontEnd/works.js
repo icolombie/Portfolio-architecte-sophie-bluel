@@ -1,3 +1,5 @@
+import { modeEdition } from "./connexion.js";
+
 //Récupération dynamique des travaux
 const reponse = await fetch("http://localhost:5678/api/works");
 const works = await reponse.json();
@@ -14,9 +16,13 @@ function genererProjets(works) {
         sectionProjets.appendChild(ficheProjet);
         ficheProjet.appendChild(imageProjet);
         ficheProjet.appendChild(nomProjet);
+
     }
 }
+modeEdition();
 genererProjets(works);
+
+
 
 //Ajout des boutons de tri
 const barreBoutons = document.querySelector(".barreBoutons");
@@ -68,5 +74,8 @@ boutonTous.addEventListener("click", function () {
     genererProjets(triObjets);
 });
 
-
+const boutonLogout = document.getElementById("logout");
+boutonLogout.addEventListener("click", function() {
+    window.localStorage.removeItem("token");
+});
 
