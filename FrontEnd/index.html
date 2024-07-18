@@ -17,6 +17,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="works.js"></script>
+	<script type="module" src="boutons.js"></script>
 	
 </head>
 <body>
@@ -30,8 +31,8 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li id="login"><a href="/connexion.html">Login</a></li>
-			<li id="logout"><a href="/index.html">Logout</a></li>
+			<li id="login"><a href="./connexion.html">Login</a></li>
+			<li id="logout"><a href="./index.html">Logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -49,7 +50,13 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="titre">
+			<h2>Mes Projets</h2>
+			<div class="modification" id="modification">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<span><a href="#">Modifier</a></span>
+			</div>	
+		</div>
 		<div class="barreBoutons">
 		</div>
 		<div class="gallery">
@@ -58,7 +65,7 @@
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" method="post">
+		<form action="#" , method="post">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name">
 			<label for="email">Email</label>

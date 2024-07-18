@@ -215,21 +215,18 @@ text-decoration: none;
 	color: white;
 	background-color: #1D6154;
 }
-.btnResto {
-	padding: 15px;
-}
+
 .btntous {
 	padding-left: 35px;
 	padding-right: 35px;
 }
-.btnObjets {
+.btnTri {
+	padding-top: 10px;
+	padding-bottom: 10px;
 	padding-left: 25px;
 	padding-right: 25px;
 }
-.btnAppart {
-	padding-left: 20px;
-	padding-right: 20px;
-}
+
 /*Page de connexion*/
 
 .connexion h1 {
@@ -277,6 +274,7 @@ text-decoration: none;
 	color: rgba(61, 61, 61, 1);
 	text-align: center;
 }
+/*Mode édition*/
 #edition {
 	width: 100%;
 	display: flex;
@@ -295,4 +293,30 @@ text-decoration: none;
 }
 #logout {
 	display: none;
+}
+.titre {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	
+}
+.modification {
+	width: 58px;
+	height: 16px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	display: none;
+}
+.modification span a {
+	font-family: Work Sans;
+	font-size: 14px;
+	color: black;
+}
+.modification i {
+	margin-left: 20px;
 }
