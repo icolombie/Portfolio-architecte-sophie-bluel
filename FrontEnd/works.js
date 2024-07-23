@@ -40,6 +40,7 @@ async function genererBoutonsTri() {
     const request = await fetch("http://localhost:5678/api/categories");
     const listeCategories = await request.json();
     console.log(listeCategories);
+    
     for (let i = 0; i < listeCategories.length; i++) {
     const category = listeCategories[i];
     const boutonTri = document.createElement("button");
@@ -53,11 +54,12 @@ async function genererBoutonsTri() {
     })
     document.querySelector(".gallery").innerHTML = "";
     genererProjets(triCategory);
+    
    });
 }
 };
 
-
+//Activation du mode édition
 function modeEdition() {
     const tokenValue = window.localStorage.getItem("token :");
     if (tokenValue) {
@@ -69,9 +71,14 @@ function modeEdition() {
     } else {
       console.log("pas de token trouvé");
     }
-    window.onbeforeunload = function (){
-         window.localStorage.removeItem("token :");
-    }
+    document.getElementById("logout").onclick= function (){
+        window.localStorage.removeItem("token :");
+   }
+    
+    
+    //window.onbeforeunload = function (){
+         //window.localStorage.removeItem("token :");
+    //}
    };
 
    

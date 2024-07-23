@@ -17,7 +17,8 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="works.js"></script>
-	<script type="module" src="boutons.js"></script>
+	<script type="module" src="modale.js" defer></script>
+	<script type="module" src="modale2.js" defer></script>
 	
 </head>
 <body>
@@ -54,14 +55,48 @@
 			<h2>Mes Projets</h2>
 			<div class="modification" id="modification">
 				<i class="fa-regular fa-pen-to-square"></i>
-				<span><a href="#">Modifier</a></span>
+				<span><a href="#modal1" id="openModal1">Modifier</a></span>
 			</div>	
 		</div>
+		
 		<div class="barreBoutons">
 		</div>
 		<div class="gallery">
 		</div>
 	</section>
+	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal">
+		<div class="modal-wrapper">
+			<span id="retour"><i class="fa-solid fa-arrow-left"></i></span>
+			<span id="closeModal"><i class="fa-solid fa-x"></i></span>
+			<div class="titreModale">
+				<h1 id="titleModal">Galerie Photo</h1>
+			</div>
+			<section id="modale1" class="modalContent">
+				
+				<div class="galerie"></div>
+				<button id="addPhoto">Ajouter une photo</button>
+			</section>
+			<section id="modale2" class="modalContent2">
+				<div class="modale2">
+					<i class="fa-regular fa-image montagne"></i>
+    				<button class="photo">+ Ajouter photo</button>
+    				<p>jpeg, png : 4mo max</p>
+				</div>
+				<div class="formulaire">
+					<form action="#">
+						<label for="titre">Titre</label>
+						<input type="text" name="titre" id="titre">
+						<label for="categorie">Catégorie</label>
+						<select id="categorie" name="categorie">
+							
+						</select>
+						</form>
+				</div>
+				<button id="validation">Valider</button>
+			</section>
+		</div>
+	
+	</aside>
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
