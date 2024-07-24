@@ -1,6 +1,6 @@
 //const supprimerElement = async function(event) {
 //   event.preventDefault();
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", () => {
     const iconeSupp = document.querySelector(".iconeSuppr");
     if(iconeSupp) {
             iconeSupp.onclick = function() {

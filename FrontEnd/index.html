@@ -79,20 +79,27 @@
 			<section id="modale2" class="modalContent2">
 				<div class="modale2">
 					<i class="fa-regular fa-image montagne"></i>
-    				<button class="photo">+ Ajouter photo</button>
+				
+					
+					<input type="button" class="file-upload" for="fileInput" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
+    				<input type="file" class="photo" id="fileInput" accept="image/*">
     				<p>jpeg, png : 4mo max</p>
 				</div>
-				<div class="formulaire">
-					<form action="#">
+				<div id="photoDiv">
+					<img id="photo" src="" alt="Photo chargée">
+				</div>
+			
+					<div class="formulaire">
+						<form action="/upload" enctype="multipart/form-data">
 						<label for="titre">Titre</label>
-						<input type="text" name="titre" id="titre">
+						<input type="text" name="name" class="name" id="name" required>	
 						<label for="categorie">Catégorie</label>
-						<select id="categorie" name="categorie">
-							
+						<select id="categorie" name="categorie" required>
+							<option></option>
 						</select>
 						</form>
 				</div>
-				<button id="validation">Valider</button>
+				<button type="submit" id="validation">Valider</button>
 			</section>
 		</div>
 	
