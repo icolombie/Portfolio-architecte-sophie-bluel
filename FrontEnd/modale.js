@@ -5,27 +5,8 @@ document.getElementById("openModal1").onclick = function() {
     genererPhotos();
     
 }
-//Création de la classe DomElement
-class DomElement {
-    constructor(tagName, htmlContent, id) {
-        this.element = document.createElement(tagName);
-        this.element.innerHTML = htmlContent;
-        this.element.id = id;
-        
-    }
-    addClass(className) {
-        this.element.classList.add(className);
-    }
-    appendTo(parent) {
-        parent.appendChild(this.element);
-    }
-    
-};
-function createDomElement(tagName,htmlContent,id)  {
-        const newDomElement = new DomElement(tagName,htmlContent,id);
-        return newDomElement;
-        
-        }
+
+
         
 //Récupération dynamique des photos
 
@@ -40,65 +21,37 @@ async function genererPhotos() {
         imageGalerie.setAttribute("id", galerie.id);
         const ficheGalerie = document.createElement("div");
         ficheGalerie.appendChild(imageGalerie);
-        const deleteIcon = createDomElement('button','<i class="fa-regular fa-trash-can">', galerie.id);
-        deleteIcon.addClass("iconeSuppr");
-        deleteIcon.appendTo(ficheGalerie);  
+        const deleteIcon = document.createElement('button');
+        deleteIcon.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+        deleteIcon.id = galerie.id;
+        deleteIcon.classList.add("iconeSuppr");
+        ficheGalerie.appendChild(deleteIcon); 
         ficheGalerie.classList.add("ficheGalerie");
         const sectionGalerie = document.querySelector(".galerie");
         sectionGalerie.appendChild(ficheGalerie);  
-        
-       
+    deleteIcon.addEventListener('click', async function() {
+    const id = galerie.id; // récupère l'id de l'image
+    const token = window.localStorage.getItem("token :");
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (response.ok) {
+        console.log("Suppression réussie");
+        // Supprime l'image et le bouton de la galerie
+        sectionGalerie.removeChild(ficheGalerie);
+    } else {
+        throw new Error("Erreur lors de la suppression : " + response.status);
     }
-    
+});
 }
-
+}
 
    
 
-    async function deleteWork (event) {
-        event.preventDefault();
-        const deleteIcons = document.querySelectorAll(".iconeSuppr");
-        for (let i = 0; i < deleteIcons.length; i++) {
-        const deleteIcon = deleteIcons[i];
-        const idIcone = deleteIcon.id;
-        const token = window.localStorage.getItem("token :");
-        console.log(idIcone);
-        console.log(token);
-    const apiUrl = `http://localhost:5678/api/works/'${idIcone}'`;
-    await fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-        'Accept': '*/*',
-        'Authorization' : `Bearer ${token}`
-    }
-})
-    .then(response => {
-        console.log(response);
-    if (response.ok) {
-        const img = document.querySelector(`img[id="${idIcone}"]`);
-                img.remove();
-                deleteIcon.remove();
-    } else {
-        console.error('Erreur lors de la suppression de l\'image');
-    }
-});
-};
-}
-//window.addEventListener("DOMContentLoaded", () => {
-//const iconeSupps = document.querySelectorAll(".iconeSuppr");
-
-//deleteIcone.addEventListener("click", deleteWork);
-//})
-//window.addEventListener("DOMContentLoaded", () => {
-    const deleteIcons = document.querySelectorAll(".iconeSuppr");
-    for (let i = 0; i < deleteIcons.length; i++) {
-        const deleteIcon = deleteIcons[i];
-        deleteIcon.addEventListener("click", deleteWork);
-            //deleteIcons.forEach(deleteIcon => {
-        //deleteIcon.addEventListener("click", deleteWork);
-       };
-
-    //});
+    
 
 //redirection vers modale 2e version
 document.getElementById("addPhoto").onclick = function() {
@@ -163,9 +116,10 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     },
     body: formData
 })
-    let data;
+    //let data;
       if (response.ok) {
-        data = await response.json();
+        //data = 
+        await response.json();
         console.log("Téléchargement réussi");
         genererPhotos();
       } else {
@@ -185,6 +139,7 @@ document.getElementById('addWork').addEventListener('submit', sendRequest);
     document.getElementById("modale1").style.display = "flex";
     document.getElementById("modale2").style.display = "none";
     document.getElementById("titleModal").innerText = "Galerie photo";
+    fleche.style.visibility = "hidden";
      
     }
  
@@ -192,6 +147,8 @@ document.getElementById('addWork').addEventListener('submit', sendRequest);
 document.getElementById("closeModal").onclick = function() {
     const modale1 = document.getElementById("modal1");
     modale1.style.display="none";
+    const modale2 = document.getElementById("modale2");
+    modale2.style.display="none";
  
 };
 
