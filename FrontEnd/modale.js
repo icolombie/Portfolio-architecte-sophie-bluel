@@ -2,7 +2,31 @@
 document.getElementById("openModal1").onclick = function() {
     document.getElementById("modal1").style.display = "flex";
     document.getElementById("titleModal").innerText = "Galerie photo";
+    genererPhotos();
+    
 }
+//Création de la classe DomElement
+class DomElement {
+    constructor(tagName, htmlContent, id) {
+        this.element = document.createElement(tagName);
+        this.element.innerHTML = htmlContent;
+        this.element.id = id;
+        
+    }
+    addClass(className) {
+        this.element.classList.add(className);
+    }
+    appendTo(parent) {
+        parent.appendChild(this.element);
+    }
+    
+};
+function createDomElement(tagName,htmlContent,id)  {
+        const newDomElement = new DomElement(tagName,htmlContent,id);
+        return newDomElement;
+        
+        }
+        
 //Récupération dynamique des photos
 
 async function genererPhotos() {
@@ -16,20 +40,65 @@ async function genererPhotos() {
         imageGalerie.setAttribute("id", galerie.id);
         const ficheGalerie = document.createElement("div");
         ficheGalerie.appendChild(imageGalerie);
-        const deleteIcone = document.createElement("button");
-        deleteIcone.innerHTML = '<i class="fa-regular fa-trash-can">';
-        deleteIcone.setAttribute("id", galerie.id);
-        deleteIcone.classList.add("iconeSuppr");
-        ficheGalerie.appendChild(deleteIcone);
+        const deleteIcon = createDomElement('button','<i class="fa-regular fa-trash-can">', galerie.id);
+        deleteIcon.addClass("iconeSuppr");
+        deleteIcon.appendTo(ficheGalerie);  
         ficheGalerie.classList.add("ficheGalerie");
         const sectionGalerie = document.querySelector(".galerie");
         sectionGalerie.appendChild(ficheGalerie);  
+        
        
     }
+    
 }
-genererPhotos();
 
 
+   
+
+    async function deleteWork (event) {
+        event.preventDefault();
+        const deleteIcons = document.querySelectorAll(".iconeSuppr");
+        for (let i = 0; i < deleteIcons.length; i++) {
+        const deleteIcon = deleteIcons[i];
+        const idIcone = deleteIcon.id;
+        const token = window.localStorage.getItem("token :");
+        console.log(idIcone);
+        console.log(token);
+    const apiUrl = `http://localhost:5678/api/works/'${idIcone}'`;
+    await fetch(apiUrl, {
+    method: 'DELETE',
+    headers: {
+        'Accept': '*/*',
+        'Authorization' : `Bearer ${token}`
+    }
+})
+    .then(response => {
+        console.log(response);
+    if (response.ok) {
+        const img = document.querySelector(`img[id="${idIcone}"]`);
+                img.remove();
+                deleteIcon.remove();
+    } else {
+        console.error('Erreur lors de la suppression de l\'image');
+    }
+});
+};
+}
+//window.addEventListener("DOMContentLoaded", () => {
+//const iconeSupps = document.querySelectorAll(".iconeSuppr");
+
+//deleteIcone.addEventListener("click", deleteWork);
+//})
+//window.addEventListener("DOMContentLoaded", () => {
+    const deleteIcons = document.querySelectorAll(".iconeSuppr");
+    for (let i = 0; i < deleteIcons.length; i++) {
+        const deleteIcon = deleteIcons[i];
+        deleteIcon.addEventListener("click", deleteWork);
+            //deleteIcons.forEach(deleteIcon => {
+        //deleteIcon.addEventListener("click", deleteWork);
+       };
+
+    //});
 
 //redirection vers modale 2e version
 document.getElementById("addPhoto").onclick = function() {
@@ -45,18 +114,19 @@ async function genererListe() {
     const request = await fetch("http://localhost:5678/api/categories");
     const listeCategories = await request.json();
     console.log(listeCategories);
-    
     for (let i = 0; i < listeCategories.length; i++) {
     const category = listeCategories[i];
     const optionListe = document.createElement("option");
     optionListe.innerText = category.name;
     optionListe.classList.add("optionCategorie");
-    const selectElement = document.getElementById("categorie");
+    optionListe.setAttribute("id", category.id);
+    const selectElement = document.getElementById("selectCategorie");
     selectElement.appendChild(optionListe);
     }
 }
 genererListe();
 
+//Affichage de la photo chargée
 document.getElementById('fileInput').addEventListener('change', function(event) {
     let file = event.target.files[0];
     if (file) {
@@ -70,10 +140,41 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     }
 });
 
-//document.querySelector('.file-upload').addEventListener('click', function() {
-    //document.getElementById('fileInput').click();
-//});
 
+//requête d'ajout de photo
+  async function sendRequest(event) {
+    event.preventDefault();
+    const fichier = document.getElementById('fileInput').files[0];
+    const formData = new FormData();
+    formData.append("image", fichier);
+    console.log(fichier);
+    const imageTitre = document.getElementById('name').value;
+    formData.append("title", imageTitre);
+    console.log(imageTitre);
+    const selectElement = document.getElementById('selectCategorie');
+    const imageCatégorie = selectElement.options[selectElement.selectedIndex].id;
+    formData.append("category", imageCatégorie);
+    console.log(imageCatégorie);
+    const token = window.localStorage.getItem("token :");
+    const response = await fetch('http://localhost:5678/api/works', {
+    method:'POST',
+    headers: {
+        'Authorization': `Bearer ${token}`,
+    },
+    body: formData
+})
+    let data;
+      if (response.ok) {
+        data = await response.json();
+        console.log("Téléchargement réussi");
+        genererPhotos();
+      } else {
+        throw new Error("Erreur lors du téléchargement : " + response.status);
+      }
+    }
+    
+
+document.getElementById('addWork').addEventListener('submit', sendRequest);
 
 
 

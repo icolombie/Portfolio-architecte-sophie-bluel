@@ -425,7 +425,7 @@ text-decoration: none;
 	padding: 3px;
 	color: white;
 	background-color: black;
-
+	cursor: pointer;
 	text-align: center;
 }
 /*Modale 2"*/
@@ -558,4 +558,5 @@ border: white;
 .photo {
 	display: none;
 }
+
   

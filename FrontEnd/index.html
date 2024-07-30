@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="works.js"></script>
 	<script type="module" src="modale.js" defer></script>
-	<script type="module" src="modale2.js" defer></script>
+
 	
 </head>
 <body>
@@ -77,29 +77,32 @@
 				<button id="addPhoto">Ajouter une photo</button>
 			</section>
 			<section id="modale2" class="modalContent2">
-				<div class="modale2">
+				<form action="#" enctype="multipart/form-data" id="addWork">
+				<fieldset class="modale2">
 					<i class="fa-regular fa-image montagne"></i>
-				
 					
 					<input type="button" class="file-upload" for="fileInput" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
     				<input type="file" class="photo" id="fileInput" accept="image/*">
     				<p>jpeg, png : 4mo max</p>
-				</div>
-				<div id="photoDiv">
+				</fieldset>
+				<fieldset id="photoDiv">
 					<img id="photo" src="" alt="Photo chargée">
-				</div>
+				</fieldset>
 			
-					<div class="formulaire">
-						<form action="/upload" enctype="multipart/form-data">
+					<fieldset class="formulaire">
+						
 						<label for="titre">Titre</label>
 						<input type="text" name="name" class="name" id="name" required>	
 						<label for="categorie">Catégorie</label>
-						<select id="categorie" name="categorie" required>
+						<select id="selectCategorie" name="categorie" required>
 							<option></option>
 						</select>
-						</form>
-				</div>
+					
+				
+				
 				<button type="submit" id="validation">Valider</button>
+			</fieldset>
+			</form>
 			</section>
 		</div>
 	
