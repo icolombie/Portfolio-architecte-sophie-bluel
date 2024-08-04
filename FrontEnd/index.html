@@ -32,8 +32,8 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li id="login"><a href="./connexion.html">Login</a></li>
-			<li id="logout"><a href="./index.html">Logout</a></li>
+			<li id="login"><a href="./connexion.html">login</a></li>
+			<li id="logout"><a href="./index.html">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -64,7 +64,7 @@
 		<div class="gallery">
 		</div>
 	</section>
-	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal">
+	<aside id="modal1" class="modal" role="dialog" aria-labelledby="titlemodal">
 		<div class="modal-wrapper">
 			<span id="retour"><i class="fa-solid fa-arrow-left"></i></span>
 			<span id="closeModal"><i class="fa-solid fa-x"></i></span>
@@ -74,7 +74,7 @@
 			<section id="modale1" class="modalContent">
 				
 				<div class="galerie"></div>
-				<button id="addPhoto">Ajouter une photo</button>
+				<button id="addPhoto" title="addPhoto">Ajouter une photo</button>
 			</section>
 			<section id="modale2" class="modalContent2">
 				<form action="#" enctype="multipart/form-data" id="addWork">
@@ -82,7 +82,7 @@
 					<i class="fa-regular fa-image montagne"></i>
 					
 					<input type="button" class="file-upload" for="fileInput" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
-    				<input type="file" class="photo" id="fileInput" accept="image/*">
+    				<input type="file" class="photo" id="fileInput" title="photo" accept="image/*" required>
     				<p>jpeg, png : 4mo max</p>
 				</fieldset>
 				<fieldset id="photoDiv">
@@ -94,15 +94,16 @@
 						<label for="titre">Titre</label>
 						<input type="text" name="name" class="name" id="name" required>	
 						<label for="categorie">Catégorie</label>
-						<select id="selectCategorie" name="categorie" required>
+						<select id="selectCategorie" name="categorie" title="categorie" required>
 							<option></option>
 						</select>
-					
+				</fieldset>	
 				
-				
-				<button type="submit" id="validation">Valider</button>
+				<fieldset class="bouton">
+				<button type="submit" id="validation" class="disabled" disabled>Valider</button>
 			</fieldset>
 			</form>
+			
 			</section>
 		</div>
 	
