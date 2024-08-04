@@ -18,7 +18,8 @@ async function envoyerRequete(event) {
                 'accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userData) 
+            body: JSON.stringify(userData)
+           
         }) 
         let data;
            if (response.ok) {
