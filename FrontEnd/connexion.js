@@ -31,5 +31,3 @@ async function sendIdData(event) {
     alert("Erreur lors de la requête");
   }
 }
-
-

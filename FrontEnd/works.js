@@ -33,7 +33,7 @@ const buttonBar = document.querySelector(".buttonBar");
    }
  }
 
-  //Objet générique pour générer les photos dans la galerie    
+  //Objet générique pour générer les photos dans la galerie index  
   class Figure {
     constructor(photoId, photoTitle, photoSrc) {
         this.photoId = photoId;
