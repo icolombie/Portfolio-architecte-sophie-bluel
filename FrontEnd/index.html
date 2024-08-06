@@ -18,7 +18,6 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="works.js"></script>
 	<script type="module" src="modale.js" defer></script>
-
 	
 </head>
 <body>
@@ -33,7 +32,7 @@
 			<li>projets</li>
 			<li>contact</li>
 			<li id="login"><a href="./connexion.html">login</a></li>
-			<li id="logout"><a href="./index.html">logout</a></li>
+			<li id="logout">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -51,62 +50,56 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<div class="titre">
+		<div class="title">
 			<h2>Mes Projets</h2>
 			<div class="modification" id="modification">
 				<i class="fa-regular fa-pen-to-square"></i>
-				<span><a href="#modal1" id="openModal1">Modifier</a></span>
+				<span><a href="#modal" id="openModal1">Modifier</a></span>
 			</div>	
 		</div>
 		
-		<div class="barreBoutons">
+		<div class="buttonBar">
 		</div>
 		<div class="gallery">
 		</div>
 	</section>
-	<aside id="modal1" class="modal" role="dialog" aria-labelledby="titlemodal">
+	<aside id="modal" class="modal" role="dialog" aria-labelledby="titlemodal">
 		<div class="modal-wrapper">
-			<span id="retour"><i class="fa-solid fa-arrow-left"></i></span>
+			<span id="return"><i class="fa-solid fa-arrow-left"></i></span>
 			<span id="closeModal"><i class="fa-solid fa-x"></i></span>
-			<div class="titreModale">
+			<div class="modalTitle">
 				<h1 id="titleModal">Galerie Photo</h1>
 			</div>
-			<section id="modale1" class="modalContent">
+			<section id="modal1" class="modalContent">
 				
-				<div class="galerie"></div>
+				<div class="photoGallery"></div>
 				<button id="addPhoto" title="addPhoto">Ajouter une photo</button>
 			</section>
-			<section id="modale2" class="modalContent2">
+			<section id="modal2" class="modalContent2">
 				<form action="#" enctype="multipart/form-data" id="addWork">
-				<fieldset class="modale2">
+				<fieldset class="modal2">
 					<i class="fa-regular fa-image montagne"></i>
-					
 					<input type="button" class="file-upload" for="fileInput" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
-    				<input type="file" class="photo" id="fileInput" title="photo" accept="image/*" required>
+    				<input type="file" class="photo" id="fileInput" title="photo" accept=".jpeg, .jpg, .png" required>
     				<p>jpeg, png : 4mo max</p>
 				</fieldset>
 				<fieldset id="photoDiv">
 					<img id="photo" src="" alt="Photo chargée">
 				</fieldset>
-			
-					<fieldset class="formulaire">
-						
-						<label for="titre">Titre</label>
+					<fieldset class="objectData">	
+						<label for="title">Titre</label>
 						<input type="text" name="name" class="name" id="name" required>	
-						<label for="categorie">Catégorie</label>
-						<select id="selectCategorie" name="categorie" title="categorie" required>
+						<label for="category">Catégorie</label>
+						<select id="selectCategory" name="category" title="category" required>
 							<option></option>
 						</select>
-				</fieldset>	
-				
+				</fieldset>		
 				<fieldset class="bouton">
 				<button type="submit" id="validation" class="disabled" disabled>Valider</button>
 			</fieldset>
 			</form>
-			
 			</section>
 		</div>
-	
 	</aside>
 	<section id="contact">
 		<h2>Contact</h2>
@@ -122,7 +115,6 @@
 		</form>
 	</section>
 </main>
-
 <footer>
 	<nav>
 		<ul>
