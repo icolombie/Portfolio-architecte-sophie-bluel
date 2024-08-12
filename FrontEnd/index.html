@@ -16,8 +16,8 @@
     >
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="works.js"></script>
-	<script type="module" src="modale.js" defer></script>
+	<script type="module" src="index.js"></script>
+	
 	
 </head>
 <body>
@@ -29,18 +29,18 @@
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li id="login"><a href="./connexion.html">login</a></li>
-			<li id="logout">logout</a></li>
+			<li><a href="#gallery">Projets</a></li>
+			<li><a href="#contact">Contact</a></li>
+			<li id="login"><a href="./connection.html">Login</a></li>
+			<li id="logout">Logout</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
 <main>
-	<section id="introduction">
+	<div id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel">
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -48,10 +48,10 @@
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
-	</section>
+	</div>
 	<section id="portfolio">
 		<div class="title">
-			<h2>Mes Projets</h2>
+			<h2 id="gallery">Mes Projets</h2>
 			<div class="modification" id="modification">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<span><a href="#modal" id="openModal1">Modifier</a></span>
@@ -63,23 +63,22 @@
 		<div class="gallery">
 		</div>
 	</section>
-	<aside id="modal" class="modal" role="dialog" aria-labelledby="titlemodal">
+	<dialog id="modal" class="modal" aria-labelledby="titleModal">
 		<div class="modal-wrapper">
 			<span id="return"><i class="fa-solid fa-arrow-left"></i></span>
 			<span id="closeModal"><i class="fa-solid fa-x"></i></span>
 			<div class="modalTitle">
 				<h1 id="titleModal">Galerie Photo</h1>
 			</div>
-			<section id="modal1" class="modalContent">
-				
+			<div id="modal1" class="modalContent">
 				<div class="photoGallery"></div>
-				<button id="addPhoto" title="addPhoto">Ajouter une photo</button>
-			</section>
-			<section id="modal2" class="modalContent2">
+				<button type="button" id="addPhoto" title="addPhoto">Ajouter une photo</button>
+			</div>
+			<div id="modal2" class="modalContent2">
 				<form action="#" enctype="multipart/form-data" id="addWork">
 				<fieldset class="modal2">
-					<i class="fa-regular fa-image montagne"></i>
-					<input type="button" class="file-upload" for="fileInput" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
+					<i class="fa-regular fa-image mountain"></i>
+					<input type="button" class="file-upload" value="+ Ajouter photo" onclick="document.getElementById('fileInput').click();">
     				<input type="file" class="photo" id="fileInput" title="photo" accept=".jpeg, .jpg, .png" required>
     				<p>jpeg, png : 4mo max</p>
 				</fieldset>
@@ -88,23 +87,23 @@
 				</fieldset>
 					<fieldset class="objectData">	
 						<label for="title">Titre</label>
-						<input type="text" name="name" class="name" id="name" required>	
-						<label for="category">Catégorie</label>
+						<input type="text" name="name" class="name" id="title" required>	
+						<label for="selectCategory">Catégorie</label>
 						<select id="selectCategory" name="category" title="category" required>
-							<option></option>
+							<option label=""></option>
 						</select>
 				</fieldset>		
-				<fieldset class="bouton">
+				<fieldset class="submitButton">
 				<button type="submit" id="validation" class="disabled" disabled>Valider</button>
 			</fieldset>
 			</form>
-			</section>
 		</div>
-	</aside>
+		</div>
+	</dialog>
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" , method="post">
+		<form action="#" method="post">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name">
 			<label for="email">Email</label>

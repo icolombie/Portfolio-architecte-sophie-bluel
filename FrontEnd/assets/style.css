@@ -267,12 +267,21 @@ footer nav ul {
 a {
   text-decoration: none;
 }
+#introduction {
+  margin-bottom: 150px;
+}
+.title {
+  margin-bottom: 20px;
+}
+.gallery {
+  margin-top: 20px;
+}
 .buttonBar {
   width: 100%;
   justify-content: center;
   display: flex;
-  gap: 5px;
-  margin-bottom: 30px;
+  gap: 10px;
+  margin-bottom: 50px;
 }
 .buttonBar button {
   border-radius: 30px;
@@ -306,25 +315,25 @@ a {
 .login {
   font-weight: bold;
 }
-.connexion h1 {
+.connection h1 {
   color: #1d6154;
   margin-bottom: 40px;
   font-size: 30px;
   line-height: 36px;
   font-weight: 700;
 }
-.connexion {
+.connection {
   width: 100%;
   height: 922px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.connexion form {
+.connection form {
   display: flex;
   flex-direction: column;
 }
-.connexion #email,
+.connection #email,
 #password {
   width: 379px;
   height: 51px;
@@ -333,19 +342,19 @@ a {
   margin-top: 5px;
   margin-bottom: 40px;
 }
-.connexion label {
+.connection label {
   font-family: Work Sans;
   font-weight: 500;
   font-size: 14px;
   color: rgba(61, 61, 61, 1);
 }
-.connexion .send {
+.connection .send {
   width: 179px;
   height: 36px;
   margin-top: 15px;
   border: white;
 }
-.connexion a {
+.connection a {
   font-family: Work Sans;
   font-weight: 500;
   font-size: 14px;
@@ -422,7 +431,7 @@ a {
   gap: 0px;
   padding: 20px;
   border-radius: 10px 0px 0px 0px;
-  opacity: 0px;
+  
   background-color: white;
 }
 .modalContent {
@@ -451,7 +460,6 @@ a {
   height: 36px;
   text-align: center;
   border-radius: 60px;
-  opacity: 0px;
   background: rgba(29, 97, 84, 1);
   border: white;
 }
@@ -488,7 +496,7 @@ a {
   position: relative;
   display: inline-block;
 }
-.iconeSuppr {
+.deleteIcon {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -502,7 +510,7 @@ a {
 #return {
   visibility: hidden;
 }
-.montagne {
+.mountain {
   color: rgba(185, 197, 204, 1);
   background: rgba(185, 197, 204, 0.2);
   font-size: 350%;
@@ -513,6 +521,7 @@ a {
   align-items: center;
   justify-content: center;
   display: none;
+  margin-top: 30px;
 }
 .modal2 {
   width: 420px;
@@ -576,7 +585,7 @@ input:focus {
   outline: none;
   border-color: initial;
 }
-.bouton {
+.submitButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -585,7 +594,6 @@ input:focus {
   width: 237px;
   height: 36px;
   gap: 0px;
-  opacity: 0px;
   background: rgba(167, 167, 167, 1);
   border-radius: 60px;
   font-family: Syne;
@@ -608,7 +616,6 @@ input:focus {
   height: 36px;
   text-align: center;
   border-radius: 60px;
-  opacity: 0px;
   background: rgba(29, 97, 84, 1);
   border: white;
   align-items: center;
@@ -637,11 +644,13 @@ input:focus {
   height: 169px;
   text-align: center;
   margin-bottom: 20px;
+  background-color: rgba(185, 197, 204, 0.2);
 }
 #photo {
   width: 420px;
   height: 169px;
   text-align: center;
+  object-fit: contain;
 }
 .photo {
   display: none;
@@ -653,3 +662,4 @@ input:focus {
   line-height: 16.42px;
   text-align: left;
 }
+
