@@ -17,7 +17,6 @@ async function sendIdData(event) {
     email: email,
     password: password,
   };
-  console.log(userData);
   const response = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {

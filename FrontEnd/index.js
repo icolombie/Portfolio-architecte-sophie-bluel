@@ -197,6 +197,8 @@ function createPhotoCards(works) {
   //Fonction de requête POST et ajout de photo
   async function postItem(formData) {
     const token = window.localStorage.getItem("token :");
+    console.log(token);
+    console.log(formData);
     try {
       const response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -235,7 +237,7 @@ function createPhotoCards(works) {
     const fileElement = document.getElementById("fileInput").files[0];
     const formData = new FormData();
     formData.append("image", fileElement);
-    const title = document.getElementById("name").value;
+    const title = document.getElementById("title").value;
     formData.append("title", title);
     const selectElement = document.getElementById("selectCategory");
     const photoCategory = selectElement.options[selectElement.selectedIndex].id;

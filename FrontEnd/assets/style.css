@@ -107,6 +107,7 @@ section {
 }
 body {
   line-height: 1;
+  background: rgba(255, 254, 248, 1);
 }
 ol,
 ul {
@@ -138,6 +139,11 @@ header {
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
+  margin-bottom: 80px;
+  width: 1140px;
+  height: 42px;
+  top: 50px;
+  left: 150px;
 }
 section {
   margin: 50px 0;
@@ -150,12 +156,19 @@ h1 {
   font-size: 22px;
   font-weight: 800;
   color: #b1663c;
+
 }
 
 h1 > span {
   font-family: "Work Sans";
   font-size: 10px;
-  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: 150px;
+  height: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.05em;
+
 }
 
 h2 {
@@ -168,18 +181,21 @@ nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
+  gap: 20px;
 }
 nav li {
   padding: 0 10px;
   font-size: 1.2em;
 }
 
-li:hover {
+li a:hover {
   color: #b1663c;
 }
 #introduction {
   display: flex;
   align-items: center;
+  margin-left: 50px;
+  gap: 20px;
 }
 #introduction figure {
   flex: 1;
@@ -187,11 +203,22 @@ li:hover {
 #introduction img {
   display: block;
   margin: auto;
-  width: 80%;
+  height: 355px;
+  width: 474px;
+  top: 231px;
+  left: 245px;
 }
 
 #introduction article {
   flex: 1;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: left;
+  width: 404px;
+  height: 192px;
+  margin-left: 20px;
 }
 #introduction h2 {
   margin-bottom: 1em;
@@ -199,6 +226,7 @@ li:hover {
 
 #introduction p {
   margin-bottom: 0.5em;
+  width: 404px;
 }
 #portfolio h2 {
   text-align: center;
@@ -295,7 +323,7 @@ a {
   color: white;
   background-color: #1d6154;
 }
-.buttonBar button:focus {
+.buttonBar button:focus, button:active {
   color: white;
   background-color: #1d6154;
 }
@@ -312,6 +340,12 @@ a {
 }
 
 /*Page de connexion*/
+#connection-body {
+  width: 1440px;
+  height: 1024px;
+  background: rgba(255, 254, 248, 1);
+
+}
 .login {
   font-weight: bold;
 }
@@ -328,6 +362,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 140px;
 }
 .connection form {
   display: flex;
@@ -577,14 +612,15 @@ select {
   height: 51px;
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
   border: white;
+  background-color: white;
 }
 .objectData label {
   text-align: left;
 }
-input:focus {
+/*input:focus {
   outline: none;
   border-color: initial;
-}
+}*/
 .submitButton {
   display: flex;
   justify-content: center;
