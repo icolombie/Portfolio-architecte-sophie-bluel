@@ -96,8 +96,7 @@ function createPhotoCards(works) {
     document.getElementById("titleModal").innerText = "Galerie photo";
     document.getElementById("modal1").classList.remove("hidden");
     document.querySelector(".photoGallery").innerHTML = "";
-    const data = await getData("http://localhost:5678/api/works");
-    generatePhotos(data);
+    generatePhotos(works);
     };
     
 
@@ -202,9 +201,7 @@ function createPhotoCards(works) {
       });
       if (response.ok) {
         const newWork = await response.json();
-        console.log(newWork);
         works.push(newWork);
-        console.log(works);
         document.querySelector(".gallery").innerHTML = "";
         createPhotoCards(works);
         document.querySelector(".photoGallery").innerHTML = "";
