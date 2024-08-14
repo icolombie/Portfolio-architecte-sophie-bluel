@@ -21,7 +21,7 @@
 	
 </head>
 <body>
-	<div class="edition" id="edition">
+	<div class="edition hidden" id="edition">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<span>Mode édition</span>
 	</div>	
@@ -32,7 +32,7 @@
 			<li><a href="#gallery">Projets</a></li>
 			<li><a href="#contact">Contact</a></li>
 			<li id="login"><a href="./connection.html">Login</a></li>
-			<li id="logout">Logout</li>
+			<li id="logout" class="hidden">Logout</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -52,7 +52,7 @@
 	<section id="portfolio">
 		<div class="title">
 			<h2 id="gallery">Mes Projets</h2>
-			<div class="modification" id="modification">
+			<div class="modification hidden" id="modification">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<span><a href="#modal" id="openModal1">Modifier</a></span>
 			</div>	
@@ -65,16 +65,16 @@
 	</section>
 	<dialog id="modal" class="modal" aria-labelledby="titleModal">
 		<div class="modal-wrapper">
-			<span id="return"><i class="fa-solid fa-arrow-left"></i></span>
+			<span id="return" class="hidden"><i class="fa-solid fa-arrow-left"></i></span>
 			<span id="closeModal"><i class="fa-solid fa-x"></i></span>
 			<div class="modalTitle">
 				<h1 id="titleModal">Galerie Photo</h1>
 			</div>
-			<div id="modal1" class="modalContent">
+			<div id="modal1" class="modalContent hidden">
 				<div class="photoGallery"></div>
 				<button type="button" id="addPhoto" title="addPhoto">Ajouter une photo</button>
 			</div>
-			<div id="modal2" class="modalContent2">
+			<div id="modal2" class="modalContent2 hidden">
 				<form action="#" enctype="multipart/form-data" id="addWork">
 				<fieldset class="modal2">
 					<i class="fa-regular fa-image mountain"></i>
@@ -82,7 +82,7 @@
     				<input type="file" class="photo" id="fileInput" title="photo" accept=".jpeg, .jpg, .png" required>
     				<p>jpeg, png : 4mo max</p>
 				</fieldset>
-				<fieldset id="photoDiv">
+				<fieldset id="photoDiv" class="hidden">
 					<img id="photo" src="" alt="Photo chargée">
 				</fieldset>
 					<fieldset class="objectData">	

@@ -24,8 +24,7 @@ allButton.addEventListener("click", function () {
 
   //Récupération dynamique des catégories et création des boutons de tri et de leur fonction de tri
   function createSortButtons() {
-    for (let i = 0; i < categories.length; i++) {
-      const category = categories[i];
+    for (let category of categories) {
       const sortButton = document.createElement("button");
       sortButton.innerText = category.name;
       sortButton.classList.add("sortBtn");
@@ -56,8 +55,7 @@ async function getData(url) {
 
 //Fonction pour générer les photos dans la galerie
 function createPhotoCards(works) {
-  for (let i = 0; i < works.length; i++) {
-    const work = works[i];
+  for (let work of works) {
     const figure = new Figure(work.id, work.title, work.imageUrl);
     const photoCard = figure.createFigureElement();
     const gallerySection = document.querySelector(".gallery");
@@ -68,21 +66,21 @@ function createPhotoCards(works) {
   function editionMode() {
     const tokenValue = window.localStorage.getItem("token :");
     if (tokenValue) {
-      document.getElementById("edition").style.display = "flex";
-      document.getElementById("login").style.display = "none";
-      document.getElementById("logout").style.display = "block";
-      document.querySelector(".buttonBar").style.display = "none";
-      document.querySelector(".modification").style.display = "flex";
+      document.getElementById("edition").classList.remove("hidden");
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("logout").classList.remove("hidden");
+      document.querySelector(".buttonBar").classList.add("hidden");
+      document.querySelector(".modification").classList.remove("hidden");
     } else {
       console.log("pas de token trouvé");
     }
     document.getElementById("logout").onclick = function () {
       window.localStorage.removeItem("token :");
-      document.getElementById("edition").style.display = "none";
-      document.getElementById("login").style.display = "block";
-      document.getElementById("logout").style.display = "none";
-      document.querySelector(".buttonBar").style.display = "flex";
-      document.querySelector(".modification").style.display = "none";
+      document.getElementById("edition").classList.add("hidden");
+      document.getElementById("login").classList.remove("hidden");
+      document.getElementById("logout").classList.add("hidden");
+      document.querySelector(".buttonBar").classList.remove("hidden");
+      document.querySelector(".modification").classList.add("hidden");
     };
   }
 
@@ -94,20 +92,18 @@ function createPhotoCards(works) {
 
   //ouverture de la modale et affichage des photos
   document.getElementById("openModal1").onclick = async function () {
-    document.getElementById("modal").style.display = "flex";
-    document.getElementById("return").style.visibility = "hidden";
+    document.getElementById("modal").classList.add("visible");
     document.getElementById("titleModal").innerText = "Galerie photo";
-    document.getElementById("modal1").style.display = "flex";
+    document.getElementById("modal1").classList.remove("hidden");
     document.querySelector(".photoGallery").innerHTML = "";
-    const data = await getData("http://localhost:5678/api/works");
-    generatePhotos(data);
+    generatePhotos(works);
     };
     
 
   //Requête DELETE pour suppression des photos
-  async function deleteItem(card) {
+  async function deleteItem(work) {
     const token = window.localStorage.getItem("token :");
-    const id = card.id;
+    const id = work.id;
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
       headers: {
@@ -123,24 +119,24 @@ function createPhotoCards(works) {
 
   //Récupération dynamique des photos et gestion de la suppression des photos
   async function generatePhotos(works) {
-    for (let i = 0; i < works.length; i++) {
-      const card = works[i];
-      const div = new Div(card);
+    for (let work of works) {
+      const div = new Div(work);
       const galleryCard = div.createDivElement();
       const gallerySection = document.querySelector(".photoGallery");
       gallerySection.appendChild(galleryCard);
       const deleteIcon = document.createElement("button");
       deleteIcon.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
-      deleteIcon.id = card.id;
+      deleteIcon.id = work.id;
       deleteIcon.classList.add("deleteIcon");
       galleryCard.appendChild(deleteIcon);
       deleteIcon.addEventListener("click", function () {
         try {
-          deleteItem(card);
-          gallerySection.removeChild(galleryCard);
-          const id = card.id;
-          const figure = document.getElementById(`id${id}`);
-          document.querySelector(".gallery").removeChild(figure);
+          deleteItem(work);
+          works.pop(work);
+          document.querySelector(".gallery").innerHTML = "";
+          createPhotoCards(works);
+          document.querySelector(".photoGallery").innerHTML = "";
+          generatePhotos(works);
         } catch (error) {
           alert("Erreur lors de la suppression");
           throw new Error("Erreur lors de la suppression");
@@ -151,24 +147,22 @@ function createPhotoCards(works) {
 
   //affichage modale 2e version
   document.getElementById("addPhoto").onclick = function () {
-    document.getElementById("return").style.visibility = "visible";
-    document.getElementById("modal2").style.display = "flex";
+    document.getElementById("return").classList.remove("hidden");
+    document.getElementById("modal2").classList.remove("hidden");
     document.getElementById("titleModal").innerText = "Ajout photo";
-    document.getElementById("modal1").style.display = "none";
-    document.getElementById("validation").style.display = "flex";
+    document.getElementById("modal1").classList.add("hidden");
   };
 
   //Récupération dynamique des catégories et création de la liste déroulante des catégories
   async function createCategoryList(categories) {
-    for (let i = 0; i < categories.length; i++) {
-      const category = categories[i];
+    categories.forEach(category => {
       const listOption = document.createElement("option");
       listOption.innerText = category.name;
       listOption.classList.add("categoryOption");
       listOption.setAttribute("id", category.id);
       const selectElement = document.getElementById("selectCategory");
       selectElement.appendChild(listOption);
-    }
+    })
   }
 
   createCategoryList(categories);
@@ -187,8 +181,8 @@ function createPhotoCards(works) {
         let reader = new FileReader();
         reader.onload = function (e) {
           document.getElementById("photo").src = e.target.result;
-          document.querySelector(".modal2").style.display = "none";
-          document.getElementById("photoDiv").style.display = "block";
+          document.querySelector(".modal2").classList.add("hidden");
+          document.getElementById("photoDiv").classList.remove("hidden");
         };
         reader.readAsDataURL(file);
       }
@@ -197,8 +191,6 @@ function createPhotoCards(works) {
   //Fonction de requête POST et ajout de photo
   async function postItem(formData) {
     const token = window.localStorage.getItem("token :");
-    console.log(token);
-    console.log(formData);
     try {
       const response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -209,20 +201,11 @@ function createPhotoCards(works) {
       });
       if (response.ok) {
         const newWork = await response.json();
-        console.log(newWork);
-        const figure = new Figure(newWork.id, newWork.title, newWork.imageUrl);
-        const photoCard = figure.createFigureElement();
-        const photoSection = document.querySelector(".gallery");
-        photoSection.appendChild(photoCard);
-        const div = new Div(newWork);
-        const galleryCard = div.createDivElement();
-        const gallerySection = document.querySelector(".photoGallery");
-        const deleteIcon = document.createElement("button");
-        deleteIcon.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
-        deleteIcon.id = newWork.id;
-        deleteIcon.classList.add("deleteIcon");
-        galleryCard.appendChild(deleteIcon);
-        gallerySection.appendChild(galleryCard);
+        works.push(newWork);
+        document.querySelector(".gallery").innerHTML = "";
+        createPhotoCards(works);
+        document.querySelector(".photoGallery").innerHTML = "";
+        generatePhotos(works);
       } else {
         throw new Error("Erreur lors de la suppression : " + response.status);
       }
@@ -245,8 +228,8 @@ function createPhotoCards(works) {
     try {
       await postItem(formData);
       document.getElementById("addWork").reset();
-      document.getElementById("photoDiv").style.display = "none";
-      document.querySelector(".modal2").style.display = "flex";
+      document.getElementById("photoDiv").classList.add("hidden");
+      document.querySelector(".modal2").classList.remove("hidden");
       document.getElementById("validation").className = "disabled";
       alert("Photo téléchargée avec succès et ajoutée à la galerie");
     } catch (error) {
@@ -275,26 +258,28 @@ function createPhotoCards(works) {
   document.getElementById("addWork").addEventListener("submit", sendNewPhoto);
 
   //retour vers la 1ère version de la modale avec flêche gauche
-  const fleche = document.getElementById("return");
-  fleche.onclick = function () {
-    document.getElementById("modal1").style.display = "flex";
-    document.getElementById("modal2").style.display = "none";
+  const backArrow = document.getElementById("return");
+  backArrow.onclick = function () {
+    document.getElementById("modal1").classList.remove("hidden");
+    document.getElementById("modal2").classList.add("hidden");
     document.getElementById("titleModal").innerText = "Galerie photo";
-    fleche.style.visibility = "hidden";
+    backArrow.className = "hidden";
   };
 
   //fermeture de la modale avec la croix
   document.getElementById("closeModal").onclick = function () {
-    const modale = document.getElementById("modal");
-    modale.style.display = "none";
+    const modal = document.getElementById("modal");
+    modal.classList.remove("visible");
+    backArrow.className = "hidden";
     document.querySelector(".photoGallery").innerHTML = "";
   };
 
   //fermeture de la modale par click hors de la modale
   window.onclick = function (event) {
-    const modale = document.getElementById("modal");
-    if (event.target == modale) {
-      modale.style.display = "none";
+    const modal = document.getElementById("modal");
+    if (event.target == modal) {
+      modal.classList.remove("visible");
+      backArrow.className = "hidden";
       document.querySelector(".photoGallery").innerHTML = "";
     }
   };
