@@ -292,6 +292,7 @@ footer nav ul {
 }
 /*Code ajouté à l'original*/
 /*Boutons de tri*/
+
 a {
   text-decoration: none;
 }
@@ -398,7 +399,7 @@ a {
   text-decoration: underline;
 }
 /*Mode édition*/
-#edition {
+.edition {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -406,7 +407,6 @@ a {
   gap: 10px;
   height: 59px;
   background-color: black;
-  display: none;
 }
 .edition i {
   color: white;
@@ -418,8 +418,10 @@ a {
   margin-left: 20px;
 }
 #logout {
-  display: none;
   cursor: pointer;
+}
+#logout:hover {
+  color: #b1663c;
 }
 .title {
   display: flex;
@@ -436,7 +438,6 @@ a {
   gap: 10px;
   margin-bottom: 20px;
   margin-left: 20px;
-  display: none;
 }
 .modification span a {
   font-family: Work Sans;
@@ -449,7 +450,6 @@ a {
 /*Modale*/
 .modal {
   position: fixed;
-  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -542,20 +542,17 @@ a {
   text-align: center;
 }
 /*Modale 2"*/
-#return {
-  visibility: hidden;
-}
+
 .mountain {
   color: rgba(185, 197, 204, 1);
   background: rgba(185, 197, 204, 0.2);
   font-size: 350%;
 }
-#modal2 {
+.modalContent2 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  display: none;
   margin-top: 30px;
 }
 .modal2 {
@@ -675,7 +672,6 @@ select {
   text-align: center;
 }
 #photoDiv {
-  display: none;
   width: 420px;
   height: 169px;
   text-align: center;
@@ -698,4 +694,9 @@ select {
   line-height: 16.42px;
   text-align: left;
 }
-
+.hidden {
+  display: none;
+}
+.visible {
+  display: flex;
+}
