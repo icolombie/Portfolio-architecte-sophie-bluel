@@ -31,7 +31,6 @@ export class Div {
     cardPhoto.src = this.card.imageUrl;
     cardPhoto.setAttribute("id", this.card.id);
     galleryCard.appendChild(cardPhoto);
-
     return galleryCard;
   }
 }

@@ -1,38 +1,38 @@
 import { Figure, Div } from "./class.js";
 
-
 document.addEventListener("DOMContentLoaded", main);
 
 async function main() {
+  //Requêtes de récupération des données Works et Categories dans le serveur
+  const works = await getData("http://localhost:5678/api/works");
+  const categories = await getData("http://localhost:5678/api/categories");
 
-//Requêtes de récupération des données Works et Categories dans le serveur
-const works = await getData("http://localhost:5678/api/works");
-
-const categories = await getData("http://localhost:5678/api/categories");
-
-
-//Ajout du bouton "Tous" et de sa fonction de tri
-const buttonBar = document.querySelector(".buttonBar");
-const allButton = document.createElement("button");
-allButton.innerText = "Tous";
-allButton.classList.add("allBtn");
-buttonBar.appendChild(allButton);
-allButton.addEventListener("click", function () {
-  document.querySelector(".gallery").innerHTML = "";
-  createPhotoCards(works);
-});
-
+  //Ajout du bouton "Tous" et de sa fonction de tri
+  function createAllButton() {
+    const buttonBar = document.querySelector(".buttonBar");
+    const allButton = document.createElement("button");
+    allButton.innerText = "Tous";
+    allButton.classList.add("allBtn");
+    buttonBar.appendChild(allButton);
+    allButton.addEventListener("click", function () {
+      document.querySelector(".gallery").innerHTML = "";
+      createPhotoCards(works);
+    });
+  }
   //Récupération dynamique des catégories et création des boutons de tri et de leur fonction de tri
   function createSortButtons() {
     for (let category of categories) {
       const sortButton = document.createElement("button");
       sortButton.innerText = category.name;
       sortButton.classList.add("sortBtn");
+      sortButton.setAttribute("cat-id", category.id);
       const buttonBar = document.querySelector(".buttonBar");
       buttonBar.appendChild(sortButton);
       sortButton.addEventListener("click", function () {
         const sortCategory = works.filter(function (work) {
-          return work.category.name === sortButton.textContent;
+          return (
+            work.categoryId === parseInt(sortButton.getAttribute("cat-id"))
+          );
         });
         const gallerySection = document.querySelector(".gallery");
         gallerySection.innerHTML = "";
@@ -41,27 +41,27 @@ allButton.addEventListener("click", function () {
     }
   }
 
-//Fonction générique de requête pour récupérer les données du serveur
-async function getData(url) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    alert("Erreur lors de la récupération des données");
-    console.error("Erreur lors de la récupération des données :", error);
+  //Fonction générique de requête pour récupérer les données du serveur
+  async function getData(url) {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      alert("Erreur lors de la récupération des données");
+      console.error("Erreur lors de la récupération des données :", error);
+    }
   }
-}
 
-//Fonction pour générer les photos dans la galerie
-function createPhotoCards(works) {
-  for (let work of works) {
-    const figure = new Figure(work.id, work.title, work.imageUrl);
-    const photoCard = figure.createFigureElement();
-    const gallerySection = document.querySelector(".gallery");
-    gallerySection.appendChild(photoCard);
+  //Fonction pour générer les photos dans la galerie
+  function createPhotoCards(works) {
+    for (let work of works) {
+      const figure = new Figure(work.id, work.title, work.imageUrl);
+      const photoCard = figure.createFigureElement();
+      const gallerySection = document.querySelector(".gallery");
+      gallerySection.appendChild(photoCard);
+    }
   }
-}
   //Activation du mode édition et du logout
   function editionMode() {
     const tokenValue = window.localStorage.getItem("token :");
@@ -85,9 +85,8 @@ function createPhotoCards(works) {
   }
 
   editionMode();
-
   createPhotoCards(works);
-
+  createAllButton();
   createSortButtons();
 
   //ouverture de la modale et affichage des photos
@@ -97,8 +96,7 @@ function createPhotoCards(works) {
     document.getElementById("modal1").classList.remove("hidden");
     document.querySelector(".photoGallery").innerHTML = "";
     generatePhotos(works);
-    };
-    
+  };
 
   //Requête DELETE pour suppression des photos
   async function deleteItem(work) {
@@ -119,7 +117,8 @@ function createPhotoCards(works) {
 
   //Récupération dynamique des photos et gestion de la suppression des photos
   async function generatePhotos(works) {
-    for (let work of works) {
+    for (let i = 0; i < works.length; i++) {
+      const work = works[i];
       const div = new Div(work);
       const galleryCard = div.createDivElement();
       const gallerySection = document.querySelector(".photoGallery");
@@ -132,7 +131,7 @@ function createPhotoCards(works) {
       deleteIcon.addEventListener("click", function () {
         try {
           deleteItem(work);
-          works.pop(work);
+          works.splice(i, 1);
           document.querySelector(".gallery").innerHTML = "";
           createPhotoCards(works);
           document.querySelector(".photoGallery").innerHTML = "";
@@ -155,14 +154,14 @@ function createPhotoCards(works) {
 
   //Récupération dynamique des catégories et création de la liste déroulante des catégories
   async function createCategoryList(categories) {
-    categories.forEach(category => {
+    categories.forEach((category) => {
       const listOption = document.createElement("option");
       listOption.innerText = category.name;
       listOption.classList.add("categoryOption");
       listOption.setAttribute("id", category.id);
       const selectElement = document.getElementById("selectCategory");
       selectElement.appendChild(listOption);
-    })
+    });
   }
 
   createCategoryList(categories);
@@ -187,7 +186,7 @@ function createPhotoCards(works) {
         reader.readAsDataURL(file);
       }
     });
-    
+
   //Fonction de requête POST et ajout de photo
   async function postItem(formData) {
     const token = window.localStorage.getItem("token :");
@@ -201,11 +200,15 @@ function createPhotoCards(works) {
       });
       if (response.ok) {
         const newWork = await response.json();
+        newWork.categoryId = parseInt(newWork.categoryId);
         works.push(newWork);
-        document.querySelector(".gallery").innerHTML = "";
-        createPhotoCards(works);
         document.querySelector(".photoGallery").innerHTML = "";
         generatePhotos(works);
+        document.querySelector(".buttonBar").innerHTML = "";
+        createAllButton();
+        createSortButtons();
+        document.querySelector(".gallery").innerHTML = "";
+        createPhotoCards(works);
       } else {
         throw new Error("Erreur lors de la suppression : " + response.status);
       }
@@ -213,7 +216,6 @@ function createPhotoCards(works) {
       console.error("Erreur lors de l'ajout de l'élément :", error);
     }
   }
-
   //Fonction d'ajout de photo dans le serveur et dans les galeries index et modale
   async function sendNewPhoto(event) {
     event.preventDefault();
@@ -270,6 +272,7 @@ function createPhotoCards(works) {
   document.getElementById("closeModal").onclick = function () {
     const modal = document.getElementById("modal");
     modal.classList.remove("visible");
+    document.getElementById("modal2").classList.add("hidden");
     backArrow.className = "hidden";
     document.querySelector(".photoGallery").innerHTML = "";
   };
@@ -279,9 +282,9 @@ function createPhotoCards(works) {
     const modal = document.getElementById("modal");
     if (event.target == modal) {
       modal.classList.remove("visible");
+      document.getElementById("modal2").classList.add("hidden");
       backArrow.className = "hidden";
       document.querySelector(".photoGallery").innerHTML = "";
     }
   };
 }
-
